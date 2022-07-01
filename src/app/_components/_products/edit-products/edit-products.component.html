@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Add Products</div>
+                <div class="card-body">
+                    <form style="margin:2%" [formGroup]="updateProductForm" autocomplete="off" novalidate (ngSubmit)="updateProduct(updateProductForm.value)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 font-weight-bold">Product name :</div>
+                                <div class="col-md-4">
+                                    <input id="txtproduct" class="form-control" type="text" formControlName="product_Name" placeholder="enter product name">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Description :</div>
+                                <div class="col-md-4">
+                                    <input id="txtDescription" class="form-control" rows="3" formControlName="description" placeholder="enter description">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Company :</div>
+                                <div class="col-md-4">
+                                    <input id="txtcompany" type="multiline" class="form-control" formControlName="brand" placeholder="enter company">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Price :</div>
+                                <div class="col-md-4">
+                                    <input id="txtprice" type="multiline" class="form-control" formControlName="price" placeholder="enter price">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Select Category :</div>
+                                <div class="col-md-4">
+                                    <select id="ddlCategory" class="form-control" (change)="changeCategory($event)">
+                                        <option value="0">Select Category</option>
+                                        <option *ngFor="let category of categoriesdata | async" [value]="category.id">{{category.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Select SubCategory :</div>
+                                <div class="col-md-4" *ngIf="subcategoriesdata" >
+                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" formControlName="product_Subcategory_Id">
+                                        <option selected value="0">Choose SubCategory</option>
+                                        <option *ngFor="let subcategory of subcategoriesdata | async" [value]="subcategory.id">{{subcategory.name}}</option>
+                                    </select>
+                                </div>
+                                 <div class="col-md-4" *ngIf="!subcategoriesdata">
+                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" *ngIf="!subcategoriesdata">
+                                        <option selected value="0">Choose SubCategory</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Quantity :</div>
+                                <div class="col-md-4 row">
+                                    <div class="col-md-8"><input id="txtquantity" class="form-control" rows="3" type="number" formControlName="quantity" placeholder="enter quantity"></div>
+                                    <div class="col-md-2">pcs</div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Image :</div>
+                                <div class="col-md-4">
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1" formControlName="image" placeholder="Choose File" >
+                                    <!-- <input type="file" #file class="form-control-file" id="exampleFormControlFile1" formControlName="image" placeholder="Choose File" (change)="uploadFile(file.files)" style="display:none;">
+                                    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button> -->
+                                    <!-- <div class="col-md-4">
+                                        <span class="upload" *ngIf="progress > 0">
+                                          {{progress}}%
+                                        </span>
+                                        <span class="upload" *ngIf="message">
+                                          {{message}}
+                                        </span>
+                                      </div> -->
+                                </div>
+                            </div>
+                            <div class="row mt-3 text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

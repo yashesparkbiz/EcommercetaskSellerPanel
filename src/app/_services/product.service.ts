@@ -22,4 +22,16 @@ export class ProductService {
     debugger
     return this.http.get<Array<Product>>("https://localhost:7180/Product/get-products-byUserid/"+user_Id, { headers: this.headers });
   }
+
+  getProductById(Id:number) : Observable<Product> {
+    return this.http.get<Product>("https://localhost:7180/Product/get-productbyid/"+Id, { headers: this.headers});
+  }
+
+  updateProduct(body: Product){
+    return this.http.put<any>("https://localhost:7180/Product/update-product", JSON.stringify(body), { headers: this.headers });
+  }
+
+  deleteProduct(Id:number){
+    return this.http.delete<boolean>("https://localhost:7180/Product/delete-product/"+Id,{ headers: this.headers});
+  }
 }

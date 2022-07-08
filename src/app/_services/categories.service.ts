@@ -16,4 +16,8 @@ export class CategoriesService {
   get() : Observable<Array<Categories>> {
     return this.http.get<Array<Categories>>("https://localhost:7180/ProductCategory/get-all-productcategory", { headers: this.headers });
   }
+
+  getcategoryId(Subcategory_Id:number){
+    return this.http.get<any>("https://localhost:7180/ProductCategory/get-id-bysubcategoryid/"+Subcategory_Id, { headers: this.headers });
+  }
 }

@@ -15,6 +15,7 @@ import { RegisterUserComponent } from './_components/register-user/register-user
 import { ProductslistComponent } from './_components/_products/productslist/productslist.component';
 import { AddproductsComponent } from './_components/_products/addproducts/addproducts.component';
 import { EditProductsComponent } from './_components/_products/edit-products/edit-products.component';
+import { ViewProductComponent } from './_components/_products/view-product/view-product.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterUserComponent},
   { path: 'productslist', component: ProductslistComponent},
   { path: 'addproducts', component: AddproductsComponent},
-  { path: 'editProducts/:id', component: EditProductsComponent}
+  { path: 'editProducts/:id', component: EditProductsComponent},
+  { path: 'viewProducts/:id', component: ViewProductComponent}
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     RegisterUserComponent,
     ProductslistComponent,
     AddproductsComponent,
-    EditProductsComponent
+    EditProductsComponent,
+    ViewProductComponent
   ],
   imports: [
     FormsModule,

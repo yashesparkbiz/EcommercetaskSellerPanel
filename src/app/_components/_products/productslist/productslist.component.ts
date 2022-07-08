@@ -26,4 +26,17 @@ export class ProductslistComponent implements OnInit {
       })
     }
   }
+
+  deleteProduct(id: number){
+    var check = confirm('Are you sure you want to delete product?');
+    if(check == true)
+    {
+      this.productService.deleteProduct(id).subscribe(res => {
+        if(res==true){
+          alert("Product deleted successfully;");
+          this.ngOnInit();
+        }
+      });
+    }
+  }
 }

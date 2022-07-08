@@ -1,12 +1,12 @@
 export class Product {
-    id : number = 0;
-    product_Name : string = '';
-    description : string = '';
-    brand :string = '';
-    price : number = 0;
-    product_Subcategory_Id : number = 0;
-    quantity : number = 0;
-    image : string = '';
-    is_Active : boolean = true;
-    user_Id : number = 0;
+    id !: number ;
+    product_Name!: string  ;
+    description!: string ;
+    brand !:string ;
+    price !: number ;
+    product_Subcategory_Id ! : number;
+    quantity! : number ;
+    image !: string ;
+    is_Active !: boolean ;
+    user_Id !: number ;
 }

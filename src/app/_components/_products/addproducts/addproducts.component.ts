@@ -30,16 +30,21 @@ export class AddproductsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.addProductForm = new FormGroup({
-      product_Name: new FormControl(''),
-      description: new FormControl(''),
-      brand: new FormControl(''),
-      price: new FormControl(''),
-      product_Subcategory_Id: new FormControl(''),
-      quantity: new FormControl(''),
-      image: new FormControl('')
-    });
-    this.getcategorydata();
+    if (localStorage.getItem('token') == "" || localStorage.getItem('token') == undefined) {
+      this.router.navigate(['/login']);
+    }
+    else {
+      this.addProductForm = new FormGroup({
+        product_Name: new FormControl(''),
+        description: new FormControl(''),
+        brand: new FormControl(''),
+        price: new FormControl(''),
+        product_Subcategory_Id: new FormControl(''),
+        quantity: new FormControl(''),
+        image: new FormControl('')
+      });
+      this.getcategorydata();
+    }
   }
 
   changeCategory(e: any) {
@@ -80,7 +85,7 @@ export class AddproductsComponent implements OnInit {
 
   addProduct(data: any) {
     debugger
-    if (data != undefined || data!=null || data.product_Name != "") {
+    if (data != undefined || data != null || data.product_Name != "") {
       const productdata: Products = {
         in: {
           id: 0,
@@ -95,7 +100,7 @@ export class AddproductsComponent implements OnInit {
           user_Id: (Number)(localStorage.getItem('id')?.toString())
         }
       }
-      this.productService.addProduct(productdata).subscribe(res=>{
+      this.productService.addProduct(productdata).subscribe(res => {
         this.router.navigate(['/productslist']);
       });
     }

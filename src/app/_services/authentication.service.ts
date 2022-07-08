@@ -19,7 +19,6 @@ export class AuthenticationService {
   public isauthenticate!: boolean;
   
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { 
-    debugger
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 

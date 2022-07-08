@@ -15,25 +15,25 @@
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Description :</div>
                                 <div class="col-md-4">
-                                    <input id="txtDescription" class="form-control" rows="3" formControlName="description" placeholder="enter description">
+                                    <input id="txtDescription" type="text" class="form-control" rows="3" formControlName="description" placeholder="enter description" >
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Company :</div>
                                 <div class="col-md-4">
-                                    <input id="txtcompany" type="multiline" class="form-control" formControlName="brand" placeholder="enter company">
+                                    <input id="txtcompany" type="text"  class="form-control" formControlName="brand" placeholder="enter company" >
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Price :</div>
                                 <div class="col-md-4">
-                                    <input id="txtprice" type="multiline" class="form-control" formControlName="price" placeholder="enter price">
+                                    <input id="txtprice" type="text"  class="form-control" formControlName="price" placeholder="enter price" >
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Select Category :</div>
                                 <div class="col-md-4">
-                                    <select id="ddlCategory" class="form-control" (change)="changeCategory($event)">
+                                    <select id="ddlCategory" class="form-control" (change)="changeCategory($event)" >
                                         <option value="0">Select Category</option>
                                         <option *ngFor="let category of categoriesdata | async" [value]="category.id">{{category.name}}</option>
                                     </select>
@@ -41,22 +41,22 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Select SubCategory :</div>
-                                <div class="col-md-4" *ngIf="subcategoriesdata" >
-                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" formControlName="product_Subcategory_Id">
-                                        <option selected value="0">Choose SubCategory</option>
-                                        <option *ngFor="let subcategory of subcategoriesdata | async" [value]="subcategory.id">{{subcategory.name}}</option>
+                                <div class="col-md-4"  *ngIf="subcategoriesdata">
+                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" formControlName="product_Subcategory_Id" >
+                                        <option value="0">Choose SubCategory</option>
+                                        <option *ngFor="let subcategory of subcategoriesdata " [value]="subcategory.id">{{subcategory.name}}</option>
                                     </select>
                                 </div>
                                  <div class="col-md-4" *ngIf="!subcategoriesdata">
-                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" *ngIf="!subcategoriesdata">
-                                        <option selected value="0">Choose SubCategory</option>
+                                    <select id="inputState subcategoryid ddlsubcategory" class="form-control" *ngIf="!subcategoriesdata" >
+                                        <option value="0">Choose SubCategory</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Quantity :</div>
                                 <div class="col-md-4 row">
-                                    <div class="col-md-8"><input id="txtquantity" class="form-control" rows="3" type="number" formControlName="quantity" placeholder="enter quantity"></div>
+                                    <div class="col-md-8"><input id="txtquantity" class="form-control" type="number" formControlName="quantity" placeholder="enter quantity" ></div>
                                     <div class="col-md-2">pcs</div>
                                 </div>
                             </div>
@@ -76,50 +76,12 @@
                                       </div> -->
                                 </div>
                             </div>
-                            <div class="row mt-3 text-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="row mt-5 text-center">
+                                <div class="col-md-2"><button type="submit" class="btn btn-primary">Submit</button></div>
+                                <div class="col-md-4 mt-3"><a [routerLink]="['/productslist']" class="text-danger">Cancel</a></div>
                             </div>
                         </div>
                     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>

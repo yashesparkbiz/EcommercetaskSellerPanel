@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <a [routerLink]="['/productslist']" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4" style="margin-top:25px;"><img class="card-img-top" src="..." alt="Product image cap"></div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">{{Productdata.product_Name}}</h3>
+                                <p class="card-text" style="font-size: 18px;">{{Productdata.description}}</p>
+                                <hr>
+                                <h4 class="product-price">{{Productdata.price}} INR Per Piece</h4>
+                                <hr>
+                                <h4>Qty : </h4><h5>{{Productdata.quantity}}</h5>
+                                <h5>Company : {{Productdata.brand}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

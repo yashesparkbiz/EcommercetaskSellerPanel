@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Update Order Status</div>
+                <div class="card-body">
+                    <form style="margin:2%" [formGroup]="updateOrderForm" autocomplete="off" novalidate (ngSubmit)="updateOrder(updateOrderForm.value)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 font-weight-bold">Product Id :</div>
+                                <div class="col-md-4">
+                                    <input id="txtproduct" class="form-control" type="number" readonly formControlName="product_Id" placeholder="enter product name">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4 font-weight-bold">Status :</div>
+                                <div class="col-md-4">
+                                    <select id="ddlStatus" class="form-control" formControlName="status">
+                                        <option default value="pending">pending</option>
+                                        <option value="delivered">delivered</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-5 text-center">
+                                <div class="col-md-2"><button type="submit" class="btn btn-primary">Submit</button></div>
+                                <div class="col-md-4 mt-3"><a [routerLink]="['/orderlist']" class="text-danger">Cancel</a></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

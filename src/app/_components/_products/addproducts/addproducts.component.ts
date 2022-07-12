@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { ProductService } from 'src/app/_services/product.service';
 import { Products } from 'src/app/_interfaces/products';
 import { Router } from '@angular/router';
+import { DiscountService } from 'src/app/_services/discount.service';
+import { Discount } from 'src/app/_interfaces/discount';
 
 @Component({
   selector: 'app-addproducts',
@@ -27,7 +29,7 @@ export class AddproductsComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
   constructor(private http: HttpClient, private categoriesService: CategoriesService, private subcategoriesService: SubcategoryService, private productService: ProductService,
-    private router: Router) { }
+    private router: Router, private discountService:DiscountService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('token') == "" || localStorage.getItem('token') == undefined) {
@@ -101,7 +103,28 @@ export class AddproductsComponent implements OnInit {
         }
       }
       this.productService.addProduct(productdata).subscribe(res => {
-        this.router.navigate(['/productslist']);
+        this.adddiscount(res);
+      });
+    }
+  }
+
+  adddiscount(product_Id:number){
+    if(product_Id >0)
+    {
+      const discountdata: Discount = {
+        in: {
+          id: 0,
+          product_Id: product_Id,
+          type: "regular",
+          value: "10",
+          is_Active: true
+        }
+      }
+      this.discountService.adddiscount(discountdata).subscribe(res => {
+          if(res > 0)
+          {
+            this.router.navigate(['/productslist']);
+          }
       });
     }
   }

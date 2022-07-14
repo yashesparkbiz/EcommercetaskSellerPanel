@@ -63,17 +63,8 @@
                             <div class="row mt-3">
                                 <div class="col-md-4 font-weight-bold">Image :</div>
                                 <div class="col-md-4">
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1" formControlName="image" placeholder="Choose File" >
-                                    <!-- <input type="file" #file class="form-control-file" id="exampleFormControlFile1" formControlName="image" placeholder="Choose File" (change)="uploadFile(file.files)" style="display:none;">
-                                    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button> -->
-                                    <!-- <div class="col-md-4">
-                                        <span class="upload" *ngIf="progress > 0">
-                                          {{progress}}%
-                                        </span>
-                                        <span class="upload" *ngIf="message">
-                                          {{message}}
-                                        </span>
-                                      </div> -->
+                                    <!-- <input type="file" class="form-control-file" id="exampleFormControlFile1" formControlName="image" placeholder="Choose File" > -->
+                                    <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
                                 </div>
                             </div>
                             <div class="row mt-5 text-center">

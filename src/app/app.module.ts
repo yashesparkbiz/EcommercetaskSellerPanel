@@ -18,6 +18,8 @@ import { EditProductsComponent } from './_components/_products/edit-products/edi
 import { ViewProductComponent } from './_components/_products/view-product/view-product.component';
 import { OrderlistComponent } from './_components/_orders/orderlist/orderlist.component';
 import { EditorderComponent } from './_components/_orders/editorder/editorder.component';
+import { UploadComponent } from './_components/upload/upload.component';
+import { AuthGuard } from './_guard/auth.guard';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -27,11 +29,11 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterUserComponent},
-  { path: 'productslist', component: ProductslistComponent},
+  { path: 'productslist', component: ProductslistComponent, canActivate: [AuthGuard]},
   { path: 'addproducts', component: AddproductsComponent},
   { path: 'editProducts/:id', component: EditProductsComponent},
   { path: 'viewProducts/:id', component: ViewProductComponent},
-  { path: 'orderlist', component: OrderlistComponent},
+  { path: 'orderlist', component: OrderlistComponent, canActivate: [AuthGuard]},
   { path: 'editorder/:id', component:EditorderComponent}
 ];
 
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     EditProductsComponent,
     ViewProductComponent,
     OrderlistComponent,
-    EditorderComponent
+    EditorderComponent,
+    UploadComponent
   ],
   imports: [
     FormsModule,
@@ -61,7 +64,7 @@ const appRoutes: Routes = [
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: ["localhost:5001"],
-        // disallowedRoutesRoutes: []
+        //disallowedRoutesRoutes: []
       }
     }),
   ],

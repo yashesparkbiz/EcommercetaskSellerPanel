@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Order, Orderdetail } from 'src/app/_models/orderdetail';
+import { Product } from 'src/app/_models/product.model';
 import { OrderdetailsService } from 'src/app/_services/orderdetails.service';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-editorder',
@@ -14,7 +16,8 @@ export class EditorderComponent implements OnInit {
   public id!: number;
   updateOrderForm!:FormGroup;
   isUpdate!:boolean;
-  constructor(private router: Router, private orderdetailsService:OrderdetailsService, private route:ActivatedRoute) { }
+  product!:Product;
+  constructor(private router: Router, private orderdetailsService:OrderdetailsService, private route:ActivatedRoute, private productService:ProductService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('token') == "" || localStorage.getItem('token') == undefined) {
@@ -40,9 +43,15 @@ export class EditorderComponent implements OnInit {
     this.updateOrderForm.controls["status"].setValue(data.status);
   }
 
-  updateOrder(data:any){
+  async updateOrder(data:any){
     debugger
     if (data != undefined || data != null || data.status != ""){
+      if(data.status == "delivered"){
+        await this.productService.getProductById(data.product_Id).subscribe(res => {
+          this.product = res;
+          this.updateProduct(res, this.orderdetailsdata.quantity);
+        })
+      }
       const orderdata :Order ={
         id: this.orderdetailsdata.id,
         product_Id: data.product_Id,
@@ -59,5 +68,30 @@ export class EditorderComponent implements OnInit {
         }
       });
     }
+  }
+
+  async updateProduct(data:Product, quantity:number){
+    debugger
+    var qty = data.quantity - quantity;
+    const productdata: Product =
+      {
+        id: data.id,
+        product_Name: data.product_Name,
+        description: data.description,
+        brand: data.brand,
+        price: (Number)(data.price),
+        product_Subcategory_Id: (Number)(data.product_Subcategory_Id),
+        quantity: qty,
+        image: data.image,
+        is_Active: data.is_Active,
+        user_Id: data.user_Id
+      }
+
+      await this.productService.updateProduct(productdata).subscribe(res => {
+        this.isUpdate = res;
+        if (this.isUpdate == true) {
+          alert("Product updated successfully");
+        }
+      });
   }
 }

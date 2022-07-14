@@ -13,7 +13,7 @@ export class OrderdetailsService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
   getbyuserid(userid:number): Observable<Array<ordermodel>>{
-    return this.http.get<Array<ordermodel>>("https://localhost:7180/OrderDetails/get-all-orderdetails-forseller/"+userid,{headers:this.headers});
+    return this.http.get<Array<ordermodel>>("https://localhost:7180/OrderDetails/get-all-orderdetails-forseller/"+userid,{ headers: { Authorization:`Bearer `+ localStorage.getItem("token")?.toString()} });
   }
 
   getbyid(id:number): Observable<Orderdetail>{

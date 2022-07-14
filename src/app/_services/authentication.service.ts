@@ -7,6 +7,8 @@ import { User } from '../_interfaces/user';
 import { UsersModel } from '../_interfaces/user-model';
 import { Users } from '../_models/users';
 import { EnvironmentUrlService } from './environment-url.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenModel } from '../_models/token-model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class AuthenticationService {
   user!: User;
   public isauthenticate!: boolean;
   
-  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { 
+  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService, private jwtHelper: JwtHelperService) { 
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
@@ -47,7 +49,16 @@ export class AuthenticationService {
     this.sendAuthStateChangeNotification(false);
   }
 
+  public isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("token");
+    return token!=null && !this.jwtHelper.isTokenExpired(token) ? true : false;
+  }
+
   public getuserbyemail(email:string) : Observable<Users>{
     return this.http.get<Users>("https://localhost:7180/Users/get-user-byemail/"+email, { headers: this.headers });
+  }
+
+  public refreshtoken(tokenModel:TokenModel): Observable<TokenModel>{
+    return this.http.post<TokenModel>("https://localhost:7180/Users/refresh-token", JSON.stringify(tokenModel), { headers: this.headers });
   }
 }

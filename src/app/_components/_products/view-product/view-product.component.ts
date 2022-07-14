@@ -29,4 +29,8 @@ export class ViewProductComponent implements OnInit {
       this.Productdata = res;
     });
   }
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7180/${serverPath}`; 
+  }
 }

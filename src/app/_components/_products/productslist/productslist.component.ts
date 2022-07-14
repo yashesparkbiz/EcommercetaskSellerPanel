@@ -39,4 +39,8 @@ export class ProductslistComponent implements OnInit {
       });
     }
   }
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7180/${serverPath}`; 
+  }
 }

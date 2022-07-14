@@ -21,6 +21,7 @@ export class EditProductsComponent implements OnInit {
   categoriesdata!: Observable<Categories[]>;
   Productdata!: Product;
   isUpdate!: boolean;
+  response!: {dbPath: ''};
   constructor(private subcategoriesService: SubcategoryService, private categoriesService: CategoriesService, private route: ActivatedRoute, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
@@ -98,7 +99,7 @@ export class EditProductsComponent implements OnInit {
         price: (Number)(data.price),
         product_Subcategory_Id: (Number)(data.product_Subcategory_Id),
         quantity: (Number)(data.quantity),
-        image: "6.jpg",
+        image: this.response.dbPath != ""?this.response.dbPath:this.Productdata.image,
         is_Active: true,
         user_Id: (Number)(localStorage.getItem('id')?.toString())
       }
@@ -110,5 +111,9 @@ export class EditProductsComponent implements OnInit {
         }
       });
     }
+  }
+
+  uploadFinished = (event: any) => { 
+    this.response = event; 
   }
 }

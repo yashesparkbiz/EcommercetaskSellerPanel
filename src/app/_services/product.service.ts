@@ -20,7 +20,7 @@ export class ProductService {
 
   getProductsByUserId(user_Id:number) : Observable<Array<Product>>{
     debugger
-    return this.http.get<Array<Product>>("https://localhost:7180/Product/get-products-byUserid/"+user_Id, { headers: this.headers });
+    return this.http.get<Array<Product>>("https://localhost:7180/Product/get-products-byUserid/"+user_Id, { headers: { Authorization:`Bearer `+ localStorage.getItem("token")?.toString()} });
   }
 
   getProductById(Id:number) : Observable<Product> {

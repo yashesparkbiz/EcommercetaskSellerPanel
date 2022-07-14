@@ -19,16 +19,15 @@ import { Discount } from 'src/app/_interfaces/discount';
 })
 
 export class AddproductsComponent implements OnInit {
-  progress!: number;
-  message!: string;
+  
   categoriesdata!: Observable<Categories[]>;
   subcategoriesdata!: Observable<SubCategories[]>;
   addProductForm!: FormGroup;
   SelSubCategoryId: string = "0";
   SelCategoryId: string = "0";
-  @Output() public onUploadFinished = new EventEmitter();
+  response!: {dbPath: ''};
 
-  constructor(private http: HttpClient, private categoriesService: CategoriesService, private subcategoriesService: SubcategoryService, private productService: ProductService,
+  constructor( private categoriesService: CategoriesService, private subcategoriesService: SubcategoryService, private productService: ProductService,
     private router: Router, private discountService:DiscountService) { }
 
   ngOnInit(): void {
@@ -62,29 +61,6 @@ export class AddproductsComponent implements OnInit {
     this.categoriesdata = this.categoriesService.get();
   }
 
-  uploadFile = (files: File[]) => {
-    if (files.length === 0) {
-      return;
-    }
-    let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-
-    this.http.post('https://localhost:5001/api/upload', formData, { reportProgress: true, observe: 'events' })
-      .subscribe({
-        next: (event) => {
-          // if (event.type === HttpEventType.UploadProgress)
-          //   this.progress = Math.round((100 * event.loaded) );
-          //   // / event.total
-          // else if (event.type === HttpEventType.Response) {
-          //   this.message = 'Upload success.';
-          //   this.onUploadFinished.emit(event.body);
-          // }
-        },
-        error: (err: HttpErrorResponse) => console.log(err)
-      });
-  }
-
   addProduct(data: any) {
     debugger
     if (data != undefined || data != null || data.product_Name != "") {
@@ -97,7 +73,7 @@ export class AddproductsComponent implements OnInit {
           price: data.price,
           product_Subcategory_Id: data.product_Subcategory_Id,
           quantity: data.quantity,
-          image: data.image,
+          image: this.response.dbPath,
           is_Active: true,
           user_Id: (Number)(localStorage.getItem('id')?.toString())
         }
@@ -127,5 +103,9 @@ export class AddproductsComponent implements OnInit {
           }
       });
     }
+  }
+
+  uploadFinished = (event: any) => { 
+    this.response = event; 
   }
 }

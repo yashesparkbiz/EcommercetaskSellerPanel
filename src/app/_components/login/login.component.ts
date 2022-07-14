@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
           if (isseller == true) {
             this.getuserbyemail(login.username);
             localStorage.setItem("token", res.token);
+            localStorage.setItem("refreshToken", res.token);
             this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
             this.router.navigate([this.returnUrl]);
             alert("login done successfully.");
